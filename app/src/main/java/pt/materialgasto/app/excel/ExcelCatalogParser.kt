@@ -1,3 +1,4 @@
+
 package pt.materialgasto.app.excel
 
 import jxl.Workbook
@@ -74,13 +75,11 @@ object ExcelCatalogParser {
             spreadsheet.rows
         }
 
-        // Map: normalizedRef -> linked map of normalizedDesc -> original (ref, desc)
         val groupedByRef = linkedMapOf<String, LinkedHashMap<String, Pair<String, String>>>()
         var duplicateCount = 0
         var skippedIncompleteCount = 0
 
         for (row in dataRows) {
-            // Ignore completely empty rows
             if (row.all { it.isBlank() }) continue
 
             val rawRef = row.getOrNull(refCol)?.trim().orEmpty()
@@ -183,7 +182,7 @@ object ExcelCatalogParser {
     private fun parseXls(bytes: ByteArray, fileName: String): ParsedSpreadsheet {
         val settings = WorkbookSettings().apply {
             encoding = "Cp1252"
-            suppressWarnings = true
+            setSuppressWarnings(true)
         }
         val workbook = Workbook.getWorkbook(ByteArrayInputStream(bytes), settings)
         return try {
@@ -218,9 +217,10 @@ object ExcelCatalogParser {
             }
         }
 
-        val sharedStrings = entries["xl/sharedstrings.xml"]?.let { parseSharedStrings(it) } ?: emptyList()
+        val sharedStrings = entries["xl/sharedstrings.xml"]?.let {
+            parseSharedStrings(it)
+        } ?: emptyList()
 
-        // Locate the first worksheet XML reliably
         val firstSheetEntryName = resolveFirstWorksheetEntry(entries)
             ?: throw IllegalStateException("Não foi encontrada nenhuma folha de cálculo no ficheiro .xlsx.")
 
@@ -381,7 +381,6 @@ object ExcelCatalogParser {
             "inlineStr", "str" -> raw
             "b" -> if (raw == "1") "TRUE" else "FALSE"
             else -> {
-                // Clean trailing ".0" from integer numbers stored as floats in XLSX
                 if (raw.endsWith(".0") && raw.dropLast(2).all { it.isDigit() || it == '-' }) {
                     raw.dropLast(2)
                 } else {
