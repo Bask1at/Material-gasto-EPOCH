@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.58"
+        android:scaleY="0.58"
+        android:translateX="22.68"
+        android:translateY="22.68">
+        <!-- Clipboard / Work Order Sheet -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M24,14H84C88.42,14 92,17.58 92,22V88C92,92.42 88.42,96 84,96H24C19.58,96 16,92.42 16,88V22C16,17.58 19.58,14 24,14Z" />
+        <!-- Clipboard Top Clip -->
+        <path
+            android:fillColor="#E3F2FD"
+            android:pathData="M38,8H70C72.21,8 74,9.79 74,12V20C74,22.21 72.21,24 70,24H38C35.79,24 34,22.21 34,20V12C34,9.79 35.79,8 38,8Z" />
+        <!-- Check / Material lines -->
+        <path
+            android:fillColor="#1565C0"
+            android:pathData="M28,38H64V44H28V38ZM28,54H78V60H28V54ZM28,70H58V76H28V70Z" />
+        <!-- Wrench / Check accent -->
+        <path
+            android:fillColor="#1E88E5"
+            android:pathData="M71,78L64,71L68,67L71,70L80,61L84,65L71,78Z" />
+    </group>
+</vector>
